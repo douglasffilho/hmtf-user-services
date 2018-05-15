@@ -40,9 +40,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByName(String name) throws ServiceException {
+    public User findByUsername(String username) throws ServiceException {
         try {
-            return userDao.findByName(name);
+            return userDao.findByUsername(username);
         } catch (NullPointerException npe) {
             throw new ServiceException("Usuário não encontrado.");
         } catch (Exception ex) {

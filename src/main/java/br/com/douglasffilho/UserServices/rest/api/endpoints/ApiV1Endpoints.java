@@ -9,4 +9,6 @@ public class ApiV1Endpoints {
     public static final String API_V1_USERS_FIND_BY_NAME_ENDPOINT = "/{name}";
 
     public static final String API_V1_USERS_SAVE_ENDPOINT = "/save";
+
+    public static final String API_V1_DOCUMENTATION_ACCESS_POINT = API_V1 + "/documentation";
 }

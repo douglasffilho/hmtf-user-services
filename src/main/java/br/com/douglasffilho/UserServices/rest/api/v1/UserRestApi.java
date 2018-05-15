@@ -1,16 +1,14 @@
 package br.com.douglasffilho.UserServices.rest.api.v1;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
 import br.com.douglasffilho.UserServices.Messaging.MessageSender;
 import br.com.douglasffilho.UserServices.VO.UserVO;
 import br.com.douglasffilho.UserServices.entities.User;
+import br.com.douglasffilho.UserServices.rest.api.endpoints.ApiV1Endpoints;
 import br.com.douglasffilho.UserServices.services.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,12 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
-import br.com.douglasffilho.UserServices.rest.api.endpoints.ApiV1Endpoints;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Api(value = ApiV1Endpoints.API_V1_USERS_ROOT_ENDPOINT, //
         description = "API para consulta e manutenção de usuarios do sistema.")
@@ -73,7 +70,7 @@ public class UserRestApi {
     public User obterUsuarioPorNome(@PathVariable("name") String name, HttpServletResponse response)
             throws IOException {
         try {
-            User user = userService.findByName(name);
+            User user = userService.findByUsername(name);
 
             return user;
         } catch (ServiceException ex) {

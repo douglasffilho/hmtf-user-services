@@ -10,5 +10,5 @@ public interface UserService {
 
     public List<User> list() throws ServiceException;
 
-    public User findByName(String name) throws ServiceException;
+    public User findByUsername(String username) throws ServiceException;
 }

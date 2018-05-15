@@ -1,8 +1,11 @@
 package br.com.douglasffilho.UserServices.security.config;
 
+import static br.com.douglasffilho.UserServices.rest.api.endpoints.ApiV1Endpoints.API_V1_DOCUMENTATION_ACCESS_POINT;
+
 import br.com.douglasffilho.UserServices.security.JwtAuthenticationEntryPoint;
 import br.com.douglasffilho.UserServices.security.filter.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtAuthenticationEntryPoint unauthorizedHandler;
 
     @Autowired
+    @Qualifier("jwtUserDetailsServiceImpl")
     private UserDetailsService userDetailsService;
 
     @Autowired
@@ -57,7 +61,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeRequests().antMatchers("/api/**").permitAll()
+                .authorizeRequests()
+                .antMatchers("/api/**").permitAll()
+                .antMatchers("/documentation/**").permitAll()
+                .antMatchers("/v2/**").permitAll()
+                .antMatchers("/swagger-ui**").permitAll()
+                .antMatchers("/swagger-resources/**").permitAll()
+                .antMatchers("/webjars/**").permitAll()
+                .antMatchers(API_V1_DOCUMENTATION_ACCESS_POINT + "/**").permitAll()
                 .anyRequest().authenticated();
 
         httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);

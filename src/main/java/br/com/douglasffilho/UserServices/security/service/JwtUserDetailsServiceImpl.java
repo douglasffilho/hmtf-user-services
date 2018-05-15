@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class JwtUserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
@@ -16,7 +18,7 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        Optional<User> usuario = Optional.ofNullable(userService.findByNome(username));
+        Optional<User> usuario = Optional.ofNullable(userService.findByUsername(username));
         if (usuario.isPresent()) {
             return usuario.get();
         }

@@ -9,7 +9,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -53,11 +58,9 @@ public class User implements UserDetails {
     private boolean isEnabled;
 
     @Column(name="account_expiration_date")
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime accountExpirationDate;
 
     @Column(name="credentials_expiration_date")
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime credentialsExpirationDate;
 
     @Enumerated(EnumType.STRING)

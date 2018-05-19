@@ -29,6 +29,9 @@ buildscript {
 
         //Apache commons
         apacheCommonsVersion = '1.11'
+
+        //Database versioning
+        flywayVersion = '5.0.7'
     }
     repositories {
         mavenCentral()
@@ -121,6 +124,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+    compile("org.flywaydb:flyway-core:${flywayVersion}")
 //    compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
 
     compile("io.jsonwebtoken:jjwt:${jsonWebTokenVersion}")

@@ -13,12 +13,20 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "users")
-@javax.persistence.Entity
 public class User {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "users_id_generator")
+	@TableGenerator(
+			name = "users_id_generator",
+			table = "user_id_sequence_generation",
+			pkColumnName = "key",
+			valueColumnName = "next",
+			pkColumnValue = "users_id_generator",
+			allocationSize = 30
+	)
 	@Column(name = "id")
 	private Long id;
 
@@ -34,6 +42,12 @@ public class User {
 	@Column(name = "phone")
 	private String phone;
 
+	@Column(name = "account_expiration_date")
+	private LocalDateTime accountExpirationDate;
+
+	@Column(name = "credentials_expiration_date")
+	private LocalDateTime credentialsExpirationDate;
+
 	@Column(name = "is_account_non_expired")
 	private boolean isAccountNonExpired;
 
@@ -45,12 +59,6 @@ public class User {
 
 	@Column(name = "is_enabled")
 	private boolean isEnabled;
-
-	@Column(name = "account_expiration_date")
-	private LocalDateTime accountExpirationDate;
-
-	@Column(name = "credentials_expiration_date")
-	private LocalDateTime credentialsExpirationDate;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "role", nullable = false)

@@ -121,9 +121,9 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
+//    compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
 
-    compile("io.jsonwebtoken:jjwt:${jsonWebTokenVersion }")
+    compile("io.jsonwebtoken:jjwt:${jsonWebTokenVersion}")
 
     compile("mysql:mysql-connector-java:${mySqlConnectorVersion}")
     compile("org.projectlombok:lombok:${lombokVersion}")

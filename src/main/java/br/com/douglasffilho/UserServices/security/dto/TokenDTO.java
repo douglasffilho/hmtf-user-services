@@ -1,4 +1,4 @@
-package br.com.douglasffilho.UserServices.security.models;
+package br.com.douglasffilho.UserServices.security.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,11 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class AccountCredentials {
+public class TokenDTO {
 
-	private String username;
-
-	private String password;
+	private String token;
 
 }
-

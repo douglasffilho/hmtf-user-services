@@ -39,6 +39,23 @@ public class UserFactory implements EntityFactory<User> {
 				.build();
 	}
 
+	private User createValidTest(String username, String email, String password, String phone, ProfileEnum role) {
+		return User
+				.builder()
+				.username(username)
+				.email(email)
+				.password(password)
+				.phone(phone)
+				.role(role)
+				.isAccountNonExpired(true)
+				.isAccountNonLocked(true)
+				.isCredentialsNonExpired(true)
+				.isEnabled(true)
+				.accountExpirationDate(LocalDateTime.now().plusYears(1))
+				.credentialsExpirationDate(LocalDateTime.now().plusMonths(3))
+				.build();
+	}
+
 	@Override
 	public User createValid() {
 		return createValid(username, email, password, phone, role);
@@ -46,6 +63,6 @@ public class UserFactory implements EntityFactory<User> {
 
 	@Override
 	public User createTest() {
-		return null;
+		return createValidTest(username, email, password, phone, role);
 	}
 }

@@ -11,7 +11,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -19,11 +24,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Api(value = ApiV1Endpoints.API_V1_USERS_ROOT_ENDPOINT, //
-		description = "API para consulta e manutenção de usuarios do sistema.")
-@RestController
-@RequestMapping(ApiV1Endpoints.API_V1_USERS_ROOT_ENDPOINT)
 @Slf4j
+@RestController
+@CrossOrigin(origins = "*")
+@RequestMapping(ApiV1Endpoints.API_V1_USERS_ROOT_ENDPOINT)
+@Api(value = ApiV1Endpoints.API_V1_USERS_ROOT_ENDPOINT, description = "API para consulta e manutenção de usuarios do sistema.")
 public class UserRestApi {
 
 	@Autowired

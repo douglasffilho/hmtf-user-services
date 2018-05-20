@@ -1,5 +1,6 @@
 package br.com.douglasffilho.UserServices.security.filters;
 
+import br.com.douglasffilho.UserServices.security.WebSecurityConfig;
 import br.com.douglasffilho.UserServices.security.models.AccountCredentials;
 import br.com.douglasffilho.UserServices.security.services.TokenAuthenticationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,7 +26,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	private TokenAuthenticationService tokenAuthenticationService;
 
 	protected JWTLoginFilter() {
-		super(new AntPathRequestMatcher(""));
+		super(new AntPathRequestMatcher(WebSecurityConfig.PERMITED_AUTH_PATH));
 	}
 
 	@Override

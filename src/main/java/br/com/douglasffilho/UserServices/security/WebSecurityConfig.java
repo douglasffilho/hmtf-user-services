@@ -14,7 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private static final String PERMITED_AUTH_PATH = "/auth";
+	public static final String PERMITED_AUTH_PATH = "/auth";
 
 	@Autowired
 	private JWTLoginFilter jwtLoginFilter;
@@ -22,7 +22,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(final HttpSecurity httpSecurity) throws Exception {
 
-		jwtLoginFilter.setFilterProcessesUrl(PERMITED_AUTH_PATH);
 		jwtLoginFilter.setAuthenticationManager(authenticationManager());
 
 		httpSecurity.csrf().disable().authorizeRequests()

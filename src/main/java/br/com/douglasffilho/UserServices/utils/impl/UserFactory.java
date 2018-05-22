@@ -1,35 +1,30 @@
 package br.com.douglasffilho.UserServices.utils.impl;
 
+import br.com.douglasffilho.UserServices.dto.UserDTO;
 import br.com.douglasffilho.UserServices.entities.User;
 import br.com.douglasffilho.UserServices.utils.EntityFactory;
-import br.com.douglasffilho.UserServices.utils.ProfileEnum;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
 @Data
 @Builder
+@Component
 public class UserFactory implements EntityFactory<User> {
 
-	private String username;
+	private UserDTO userDTO;
 
-	private String email;
+	private User createValid(UserDTO userDTO) {
 
-	private String password;
-
-	private String phone;
-
-	private ProfileEnum role;
-
-	private User createValid(String username, String email, String password, String phone, ProfileEnum role) {
 		return User
 				.builder()
-				.username(username)
-				.email(email)
-				.password(password)
-				.phone(phone)
-				.role(role)
+				.username(userDTO.getName())
+				.email(userDTO.getEmail())
+				.password(userDTO.getPassword())
+				.phone(userDTO.getPhone())
+				.role(userDTO.getRole())
 				.isAccountNonExpired(true)
 				.isAccountNonLocked(true)
 				.isCredentialsNonExpired(true)
@@ -39,14 +34,14 @@ public class UserFactory implements EntityFactory<User> {
 				.build();
 	}
 
-	private User createValidTest(String username, String email, String password, String phone, ProfileEnum role) {
+	private User createValidTest(UserDTO userDTO) {
 		return User
 				.builder()
-				.username(username)
-				.email(email)
-				.password(password)
-				.phone(phone)
-				.role(role)
+				.username(userDTO.getName())
+				.email(userDTO.getEmail())
+				.password(userDTO.getPassword())
+				.phone(userDTO.getPhone())
+				.role(userDTO.getRole())
 				.isAccountNonExpired(true)
 				.isAccountNonLocked(true)
 				.isCredentialsNonExpired(true)
@@ -58,11 +53,11 @@ public class UserFactory implements EntityFactory<User> {
 
 	@Override
 	public User createValid() {
-		return createValid(username, email, password, phone, role);
+		return createValid(userDTO);
 	}
 
 	@Override
 	public User createTest() {
-		return createValidTest(username, email, password, phone, role);
+		return createValidTest(userDTO);
 	}
 }

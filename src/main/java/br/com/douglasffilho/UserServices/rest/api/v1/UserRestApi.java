@@ -74,11 +74,7 @@ public class UserRestApi {
 		try {
 			User newUser = UserFactory
 					.builder()
-					.username(usuario.getName())
-					.email(usuario.getEmail())
-					.phone(usuario.getPhone())
-					.password(usuario.getPassword())
-					.role(usuario.getRole())
+					.userDTO(usuario)
 					.build()
 					.createValid();
 			return userService.save(newUser);

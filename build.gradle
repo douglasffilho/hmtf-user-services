@@ -32,6 +32,9 @@ buildscript {
 
         //Database versioning
         flywayVersion = '5.0.7'
+
+        //MapStruct Processor
+        mapStructVersion = '1.2.0.Final'
     }
     repositories {
         mavenCentral()
@@ -140,6 +143,8 @@ dependencies {
     //Swagger
     compile("io.springfox:springfox-swagger-ui:${springfoxVersion}")
     compile("io.springfox:springfox-swagger2:${springfoxVersion}")
+
+    compile("org.mapstruct:mapstruct-processor:${mapStructVersion}")
 
     testCompile("junit:junit:${junitVersion}")
     testCompile("org.springframework.boot:spring-boot-starter-test")

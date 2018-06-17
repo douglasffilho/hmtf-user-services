@@ -5,18 +5,16 @@ import br.com.douglasffilho.UserServices.entities.User;
 import br.com.douglasffilho.UserServices.utils.EntityFactory;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
 @Data
 @Builder
-@Component
 public class UserFactory implements EntityFactory<User> {
 
 	private UserDTO userDTO;
 
-	private User createValid(UserDTO userDTO) {
+	private User createValid(final UserDTO userDTO) {
 
 		return User
 				.builder()
@@ -34,7 +32,7 @@ public class UserFactory implements EntityFactory<User> {
 				.build();
 	}
 
-	private User createValidTest(UserDTO userDTO) {
+	private User createValidTest(final UserDTO userDTO) {
 		return User
 				.builder()
 				.username(userDTO.getName())
@@ -53,11 +51,11 @@ public class UserFactory implements EntityFactory<User> {
 
 	@Override
 	public User createValid() {
-		return createValid(userDTO);
+		return this.createValid(this.userDTO);
 	}
 
 	@Override
 	public User createTest() {
-		return createValidTest(userDTO);
+		return this.createValidTest(this.userDTO);
 	}
 }

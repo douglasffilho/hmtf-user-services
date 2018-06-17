@@ -1,0 +1,28 @@
+version: '2.0'
+
+networks:
+  default_network:
+    external: true
+services:
+  backend:
+    image: douglasffilho/gp-back
+    ports:
+      - "8080:8080"
+    networks:
+      - default_network
+    environment:
+      DATABASE_URL: jdbc:mysql://172.20.0.2:3306/oauth?useSSL=false
+      DATABASE_DRIVER: com.mysql.jdbc.Driver
+      DATABASE_DIALECT: org.hibernate.dialect.MySQL5InnoDBDialect
+      DATABASE_USERNAME: oauth_user
+      DATABASE_PASSWORD: oauth_password
+      DEFAULT_SYSTEM_ADMIN_USERNAME: Administrador
+      DEFAULT_SYSTEM_ADMIN_EMAIL: douglasf.filho@gmail.com
+      DEFAULT_SYSTEM_ADMIN_PHONE: 81996729491
+      DEFAULT_SYSTEM_ADMIN_PASSWORD: admin
+      GIT_USERNAME: douglasffilho
+      GIT_PASSWORD: <secret>
+      GIT_REPO_URL: https://github.com/douglasffilho/hmtf-user-services.git
+      GIT_REPO_BRANCH: master
+    command: >
+      bash -c "cd /root/htmf-user-services && ./gradlew bootRun"

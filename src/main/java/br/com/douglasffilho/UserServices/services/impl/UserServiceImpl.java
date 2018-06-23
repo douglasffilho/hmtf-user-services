@@ -36,7 +36,12 @@ public class UserServiceImpl implements UserService {
 					.build()
 					.createValid();
 
-			return this.save(user);
+			final User alreadyExists = userDao.findByEmail(user.getEmail());
+
+			if(alreadyExists == null)
+				return this.save(user);
+			return alreadyExists;
+
 		} catch (final Exception ex) {
 			throw new ServiceException("Erro ao tentar criar usuário padrão.", ex);
 		}

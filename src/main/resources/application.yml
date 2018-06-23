@@ -17,8 +17,10 @@ spring:
   jpa:
     show-sql: true
     format-sql: true
+    properties:
+      hibernate:
+        dialect: ${DATABASE_DIALECT}
     hibernate:
-      dialect: ${DATABASE_DIALECT}
       ddl-auto: update
 #CONFIGURAÇÕES DE MESSAGERIA
 rabbitmq:

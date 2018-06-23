@@ -2,7 +2,11 @@
 
 cd docker-database-execution/
 
-sudo docker network rm default_network
-sudo docker network create default_network --subnet=172.19.0.0/16 --gateway=172.19.0.1
-sudo docker-compose down
-sudo docker-compose up
+docker container stop dockerdatabaseexecution_database_1
+docker container rm dockerdatabaseexecution_database_1
+
+docker network rm default_network
+docker network create default_network --subnet=172.20.1.0/16 --gateway=172.20.1.1
+
+docker-compose down
+docker-compose up

@@ -2,11 +2,12 @@ package br.com.douglasffilho.UserServices.rest.api.v1;
 
 import br.com.douglasffilho.UserServices.dto.UserDTO;
 import br.com.douglasffilho.UserServices.entities.User;
-import br.com.douglasffilho.UserServices.rest.api.endpoints.ApiV1Endpoints;
+import br.com.douglasffilho.UserServices.rest.api.privateEndpoints.PrivateApiV1Endpoints;
 import br.com.douglasffilho.UserServices.services.UserService;
 import br.com.douglasffilho.UserServices.utils.impl.UserFactory;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Info;
+import io.swagger.annotations.SwaggerDefinition;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,14 @@ import java.util.List;
 @Slf4j
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(ApiV1Endpoints.API_V1_USERS_ROOT_ENDPOINT)
-@Api(value = ApiV1Endpoints.API_V1_USERS_ROOT_ENDPOINT, description = "API para consulta e manutenção de usuarios do sistema.")
+@RequestMapping(PrivateApiV1Endpoints.PRIVATE_API_V1_USERS_ROOT_ENDPOINT)
+@SwaggerDefinition(
+		info = @Info(
+				title = "UserRestApi",
+				description = "API para consulta e manutenção de usuarios do sistema",
+				version = "v1"
+		)
+)
 public class UserRestApi {
 
 	@Autowired
@@ -51,7 +58,7 @@ public class UserRestApi {
 	}
 
 	@ApiOperation(value = "Obter dados de usuário por nome")
-	@RequestMapping(value = ApiV1Endpoints.API_V1_USERS_FIND_BY_NAME_ENDPOINT, method = RequestMethod.GET)
+	@RequestMapping(value = PrivateApiV1Endpoints.PRIVATE_API_V1_USERS_FIND_BY_NAME_ENDPOINT, method = RequestMethod.GET)
 	public User obterUsuarioPorNome(@PathVariable("name") String name, HttpServletResponse response)
 			throws IOException {
 		try {
@@ -68,7 +75,7 @@ public class UserRestApi {
 	}
 
 	@ApiOperation(value = "Adicionar usuário")
-	@RequestMapping(value = ApiV1Endpoints.API_V1_USERS_SAVE_ENDPOINT, method = RequestMethod.POST)
+	@RequestMapping(value = PrivateApiV1Endpoints.PRIVATE_API_V1_USERS_SAVE_ENDPOINT, method = RequestMethod.POST)
 	public User salvarUsuario(@RequestBody @Valid UserDTO usuario, HttpServletResponse response)
 			throws IOException {
 		try {

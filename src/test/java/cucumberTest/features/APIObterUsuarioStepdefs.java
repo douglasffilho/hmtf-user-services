@@ -2,7 +2,7 @@ package cucumberTest.features;
 
 import br.com.douglasffilho.UserServices.UserServicesApplication;
 import br.com.douglasffilho.UserServices.entities.User;
-import br.com.douglasffilho.UserServices.rest.api.endpoints.ApiV1Endpoints;
+import br.com.douglasffilho.UserServices.rest.api.privateEndpoints.PrivateApiV1Endpoints;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cucumber.api.java.pt.Dado;
@@ -30,7 +30,7 @@ public class APIObterUsuarioStepdefs {
     private void doGetForUserByName(final String name) {
         RestTemplate restTemplate = new RestTemplate();
 
-        String url = "http://localhost:8080" + ApiV1Endpoints.API_V1_USERS_ROOT_ENDPOINT + "/" + name;
+        String url = "http://localhost:8080" + PrivateApiV1Endpoints.PRIVATE_API_V1_USERS_ROOT_ENDPOINT + "/" + name;
 
         try {
             response = restTemplate.getForEntity(url, User.class);
@@ -44,7 +44,7 @@ public class APIObterUsuarioStepdefs {
     private void doGetUsers() {
         RestTemplate restTemplate = new RestTemplate();
 
-        String url = "http://localhost:8080" + ApiV1Endpoints.API_V1_USERS_ROOT_ENDPOINT + "/";
+        String url = "http://localhost:8080" + PrivateApiV1Endpoints.PRIVATE_API_V1_USERS_ROOT_ENDPOINT + "/";
 
         try {
             response = restTemplate.getForEntity(url, List.class);

@@ -1,14 +1,18 @@
 package br.com.douglasffilho.UserServices.security;
 
+import br.com.douglasffilho.UserServices.documentation.SwaggerConfig;
 import br.com.douglasffilho.UserServices.security.filters.JwtAuthenticationTokenFilter;
 import br.com.douglasffilho.UserServices.security.handlers.JwtAuthenticationEntryPoint;
+import br.com.douglasffilho.UserServices.utils.ProfileEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -19,6 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@Import({SwaggerConfig.class})
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -50,19 +55,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring()
+				.antMatchers("/v2/api-docs",
+							"/configuration/ui",
+							"/swagger-resources/**",
+							"/configuration/**",
+							"/swagger-ui.html",
+							"/webjars/**");
+	}
+
+	@Override
 	protected void configure(final HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.csrf().disable()
+		httpSecurity
+				.csrf()
+					.disable()
 				.exceptionHandling()
-				.authenticationEntryPoint(unauthorizedHandler)
-				.and()
+					.authenticationEntryPoint(unauthorizedHandler)
+					.and()
 				.sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				.and()
+					.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+					.and()
 				.authorizeRequests()
-				.antMatchers("*/api/**", "*/docs**",  "*/swagger**")
-				.permitAll()
-				.anyRequest()
-				.authenticated();
+					.antMatchers("*/public/api/**").permitAll()
+					.antMatchers("*/private/api/**/users/**").hasRole(ProfileEnum.ROLE_ADMIN.getValue())
+					.anyRequest().authenticated();
 		httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 		httpSecurity.headers().cacheControl();
 	}

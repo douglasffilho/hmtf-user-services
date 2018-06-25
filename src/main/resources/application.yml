@@ -6,7 +6,7 @@ info:
   app:
     name: Help Me To Food User Services Microservice
     description: API de acesso aos servicos de user
-    documentation: http://localhost:8080/docs
+    documentation: http://localhost:8080/swagger-ui.html
 #CONFIGURAÇÃO DE ACESSO AO BANCO DE DADOS
 spring:
   datasource:
@@ -15,8 +15,8 @@ spring:
     password: ${DATABASE_PASSWORD}
     driver-class-name: ${DATABASE_DRIVER}
   jpa:
-    show-sql: true
-    format-sql: true
+    show_sql: true
+    format_sql: true
     properties:
       hibernate:
         dialect: ${DATABASE_DIALECT}

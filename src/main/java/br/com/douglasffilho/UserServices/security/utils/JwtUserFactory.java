@@ -6,6 +6,7 @@ import br.com.douglasffilho.UserServices.utils.ProfileEnum;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,11 @@ public class JwtUserFactory {
 				.id(user.getId())
 				.username(user.getUsername())
 				.email(user.getEmail())
-				.password(user.getPassword())
+				.password(PasswordUtils.generateBCrypt(user.getPassword()))
+				.isAccountNonExpired(true)
+				.isAccountNonLocked(true)
+				.isCredentialsNonExpired(true)
+				.isEnabled(true)
 				.authorities(mapToGrantedAutorities(user.getRole()))
 				.build();
 	}

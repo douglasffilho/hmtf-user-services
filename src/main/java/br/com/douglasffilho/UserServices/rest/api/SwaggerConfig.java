@@ -1,4 +1,4 @@
-package br.com.douglasffilho.UserServices.documentation;
+package br.com.douglasffilho.UserServices.rest.api;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +15,11 @@ public class SwaggerConfig {
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
+				.groupName("OAuthAPI")
 				.select()
 				.apis(RequestHandlerSelectors.any())
-				.paths(PathSelectors.regex("(/api/.*)"))
-				.build();
+				.paths(PathSelectors.regex("(.*/api/.*)"))
+				.build()
+				.enableUrlTemplating(false);
 	}
 }

@@ -13,11 +13,13 @@ import org.springframework.stereotype.Service;
 public class JwtUserDetailServiceImpl implements UserDetailsService {
 
 	@Autowired
-	public UserService userService;
+	private UserService userService;
 
 	@Override
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-		User user = userService.findByEmail(username);
+		User user = userService.findByUsername(username);
+		if(user == null)
+			user = userService.findByEmail(username);
 		if (user != null) {
 			return JwtUserFactory.create(user);
 		}
